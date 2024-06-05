@@ -1225,6 +1225,26 @@ export class StealHeldItemChanceAttr extends MoveEffectAttr {
   }
 }
 
+export class StealBerryChanceAttr extends StealHeldItemChanceAttr {
+    constructor(chance: number) {
+      super(chance);
+    }
+  
+    getTargetHeldItems(target: Pokemon): PokemonHeldItemModifier[] {
+      return super.getTargetHeldItems(target).filter(m => m.type.isBerry());
+    }
+  
+    getUserBenefitScore(user: Pokemon, target: Pokemon, move: Move): number {
+      const berries = this.getTargetHeldItems(target);
+      return berries.length ? 5 : 0;
+    }
+  
+    getTargetBenefitScore(user: Pokemon, target: Pokemon, move: Move): number {
+      const berries = this.getTargetHeldItems(target);
+      return berries.length ? -5 : 0;
+    }
+  }
+
 export class RemoveHeldItemAttr extends MoveEffectAttr {
   private chance: number;
 

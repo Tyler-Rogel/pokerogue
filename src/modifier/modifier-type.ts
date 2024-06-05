@@ -106,6 +106,10 @@ export class ModifierType {
   newModifier(...args: any[]): Modifier {
     return this.newModifierFunc(this, args);
   }
+  
+  isBerry(): boolean {
+    return this.name.toLowerCase().endsWith('berry');
+  }
 }
 
 type ModifierTypeGeneratorFunc = (party: Pokemon[], pregenArgs?: any[]) => ModifierType;
